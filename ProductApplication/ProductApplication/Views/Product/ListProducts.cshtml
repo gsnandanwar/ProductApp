@@ -1,0 +1,95 @@
+﻿<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Product Name</td>
+                <td>Product Category</td>
+                <td>
+                    Quantity
+                </td>
+                <td>Price</td>
+                <td>
+                    Product Description
+                </td>
+                <td></td>
+            </tr>
+            @{
+                foreach (var item in ViewBag.Products)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.CategoryName
+                        </td>
+                        <td>
+                            @item.Quantity
+                        </td>
+                        <td>
+                            @item.Price
+                        </td>
+                        <td>
+                            @item.Description
+                        </td>
+                        <td>
+                            <a href="#" id="btnEdit" value="Edit" onclick="EditProduct(@item.ProductId)">Edit</a>
+                            <a href="#" id="btnDelete" value="Delete" onclick="DeleteProduct(@item.ProductId)">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+
+
+        </thead>
+    </table>
+</div>
+<script type="text/javascript">
+    function EditProduct(productId) {
+        $.ajax({
+            type: 'GET',
+            url: '/Product/EditProduct?productId=' + productId,
+            async: false,
+            cache: false,
+            success: function (data) {
+                $('#dvCreateProduct').html(data);
+                $('#btnReset').trigger('click');
+            },
+            error: function () {
+                alert('Error occurred while getting the product details');
+            }
+        });
+    }
+
+    function DeleteProduct(productId) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/Product/DeleteProduct?productId=' + productId,
+            async: false,
+            cache: false,
+            success: function (data) {
+                alert('Product details deleted successfully');
+                GetProducts();
+            },
+            error: function () {
+                alert('Error occurred while getting the product details');
+            }
+        });
+    }
+
+    function GetProducts() {
+        $.ajax({
+            type: 'GET',
+            url: '/Product/ListProducts',
+            async: false,
+            cache: false,
+            success: function (data) {
+                $('#dvListProducts').html(data);
+            },
+            error: function () {
+                alert('Error occurred while getting the list of products');
+            }
+        });
+    }
+
+</script>

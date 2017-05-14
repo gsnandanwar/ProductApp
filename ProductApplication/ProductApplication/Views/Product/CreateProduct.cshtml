@@ -1,0 +1,72 @@
+﻿<script src="~/Scripts/Product/CreateProduct.js"></script>
+
+@model ProductApplication.Models.Product.ProductViewModel
+
+<div>
+    <form id="frmProduct">
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Name, new { @id = "txtName", title = "Please enter Product Name", placeholder = "Please enter Product Name"})
+                    @Html.ValidationMessageFor(model => model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Category)
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.Category, Model.Categories, new { @id = "ddlCategories", title = "Please select Product Category"})
+                    @Html.ValidationMessageFor(model => model.Category)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Quantity)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Quantity, new { @id = "txtQuantity", title = "Please enter Product Quantity", placeholder = "Please enter Product Quantity" })
+                    @Html.ValidationMessageFor(model => model.Quantity)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Price)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Price, new { @id = "txtPrice", title = "Please enter Product Price", placeholder = "Please enter Product Price" })
+                    @Html.ValidationMessageFor(model => model.Price)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Description)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Description, new { @id = "txtDescription", title = "Please enter Product Description", placeholder = "Please enter Product Description" })
+                    @Html.ValidationMessageFor(model => model.Description)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    
+                </td>
+                <td>
+                    @if (Model.ProductId == 0)
+                    {
+                        <input type="button" value="Submit" name="Submit" id="btnSaveProduct" />
+                    }
+                    else
+                    {
+                        @Html.HiddenFor(model => model.ProductId)
+                        <input type="button" value="Update" name="Update" id="btnUpdateProduct" />
+                    }
+                    <input type="reset" value="Reset" name="Reset" style="width:60px;" id="btnReset"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
